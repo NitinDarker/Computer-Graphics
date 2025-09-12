@@ -14,7 +14,7 @@ public class LineDDA extends JPanel {
         g2d.fillRect(0, 0, width, height);
         g2d.dispose();
 
-        drawDDALine(100, 100, 500, 500, Color.BLACK);
+        drawDDALine(100,100,100,300, Color.BLACK);
     }
 
     private void putPixel(int x, int y, Color color) {
