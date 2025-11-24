@@ -24,36 +24,21 @@ public class MidpointCubic extends JPanel {
     private void putPixel(Graphics g, int x, int y) {
         g.fillRect(x, y, 2, 2);
     }
-
-    // Implicit function: F(x,y) = y - (x^3)/12
-    private double F(double x, double y) {
-        return y - (x * x * x) / 12.0;
-    }
-
+    
     private void drawMidpointCubic(Graphics g, int xc, int yc, int xScale, int yScale) {
-        int x = -10;
-        int y = (int) Math.round((x * x * x) / 12.0);
+        double t = -10;
+        while (t <= 10) {
+            double x = t;
+            double y = (t * t * t) / 12.0;
 
-        while (x <= 10) {
-            int px = xc + x * xScale;
-            int py = yc - y * yScale;
+            int px = xc + (int) (x * xScale);
+            int py = yc - (int) (y * yScale);
+
             putPixel(g, px, py);
 
-            // Midpoint decisions
-            double fMid = Math.abs(F(x + 1, y));
-            double fUp = Math.abs(F(x + 1, y + 1));
-            double fDown = Math.abs(F(x + 1, y - 1));
-
-            if (fMid <= fUp && fMid <= fDown) {
-                x++;
-            } else if (fUp < fDown) {
-                x++;
-                y++;
-            } else {
-                x++;
-                y--;
-            }
+            t += 0.01; // smoother step
         }
+        
     }
 
     public static void main(String[] args) {

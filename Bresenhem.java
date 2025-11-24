@@ -1,29 +1,53 @@
-public class Bresenhem {
-    public static void plotLine(int x0, int y0, int x1, int y1) {
-        int x = x0, y = y0;
-        System.out.println("Plotting...");
-        System.out.println("(" + x + ", " + y + ")");
-        int dx = x1 - x0;
-        int dy = y1 - y0;
-        int pk = 2*dy - dx;
-        for (int i = 0; i < dx; i++) {
-            if (pk < 0) {
-                x = x + 1;
-                pk = pk + 2*dy;
-            } else {
-                x = x + 1;
-                y = y + 1;
-                pk = pk + 2*dy - 2*dx;
+import java.awt.*;
+import javax.swing.*;
+
+class line extends JPanel{
+
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        drawline(g,50,50,300,400);
+    }
+
+    void drawline(Graphics g, int x1,int y1, int x2, int y2)
+    {
+        int dx = x2 -x1 ;
+        int dy = y2 -y1 ; 
+
+        int d  = 2*(dy) - dx;
+        int x = x1;
+        int y = y1;
+
+        g.setColor(Color.pink);
+        while(x<=x2 && y<=y2)
+        {
+            g.fillRect(x, y, 2, 2);
+            if(d<0)
+            {
+                x++;
+                d+=(2*dy);
             }
-            System.out.println("(" + x + ", " + y + ")");
+            else
+            {
+                x++;
+                y++;
+                d+=2*((dy-dx));
+            }
         }
     }
-    
-    public static void main(String[] args) {
-        int x0 = 5;
-        int y0 = 6;
-        int x1 = 10;
-        int y1 = 10;
-        plotLine(x0, y0, x1, y1);
+}
+
+
+public class Bresenhem {
+    public static void main (String arg[])
+    {
+        JFrame frame = new JFrame();
+        line l = new line();
+        frame.add(l);
+        frame.setSize(600,600);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 }
