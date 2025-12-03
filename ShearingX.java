@@ -18,11 +18,9 @@ class shearx extends JPanel {
         for (int i = 0; i < 3; i++) {
             newx[i] = (int) Math.round(y[i] * shx) + x[i];
             newy[i] = y[i];
-        }
-
+        }   
         g.setColor(Color.black);
         g.drawPolygon(newx, newy, 3);
-
     }
 }
 

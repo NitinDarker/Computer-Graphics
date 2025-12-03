@@ -1,41 +1,43 @@
 import java.awt.*;
 import javax.swing.*;
 
-class triangle extends JPanel {
-
-    int arrx[] = { 100, 150, 200 };
-    int arry[] = { 200, 100, 200 };
-    int angle = 45; // degree
+class Triangle extends JPanel {
+    int arrx[] = { 200, 300, 400 };
+    int arry[] = { 300, 150, 300 };
+    int angle = 60; 
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        g.setColor(Color.blue);
+        g.setColor(Color.black);
         g.fillPolygon(arrx, arry, 3);
 
         double rad = Math.toRadians(angle);
+
+        double cx = (arrx[0] + arrx[1] + arrx[2]) / 3.0;
+        double cy = (arry[0] + arry[1] + arry[2]) / 3.0;
 
         int x[] = new int[3];
         int y[] = new int[3];
 
         for (int i = 0; i < 3; i++) {
-            x[i] = (int) Math.round((arrx[i] * Math.cos(rad)) - (arry[i] * Math.sin(rad)));
-            y[i] = (int) Math.round((arry[i] * Math.cos(rad)) + (arrx[i] * Math.sin(rad)));
+            double dx = arrx[i] - cx;
+            double dy = arry[i] - cy;
+            x[i] = (int) Math.round(cx + (dx * Math.cos(rad)) - (dy * Math.sin(rad)));
+            y[i] = (int) Math.round(cy + (dy * Math.cos(rad)) + (dx * Math.sin(rad)));
         }
-
-        g.setColor(Color.pink);
+        g.setColor(Color.red);
         g.fillPolygon(x, y, 3);
-
     }
 }
 
 public class Rotation {
     public static void main(String[] arg) {
         JFrame frame = new JFrame();
-        triangle t = new triangle();
+        Triangle t = new Triangle();
         frame.add(t);
-        frame.setSize(600, 600);
+        frame.setSize(720, 560);
+        frame.setTitle("Nitin's Rotation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
